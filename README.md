@@ -1,3 +1,9 @@
+# How To USE GuruShots-auto-Voter
+
+
+
+----
+
 1. You will need install node 8+ [From Here](https://nodejs.org/en/) (All default settings)
 2. Create folder "AutoVoter" where you want. In my case path - *D:\JS\GuruShots-auto-Voter*
 3. After install node 8+ (for windnows) run cmd (on keyboard press windowsBtn+r and type "cmd")
