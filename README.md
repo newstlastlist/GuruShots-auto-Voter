@@ -25,6 +25,6 @@
 
  **Done :)**
 
-This sript runs "headless" browser chromium login into your account and imitates  voting.
+This sript runs "headless" browser chromium login into your account and imitates  voting. It will take about 1 minute depending on the on quantity challenges that you have
 
 **If you have an error while first launch script just relaunch him**
