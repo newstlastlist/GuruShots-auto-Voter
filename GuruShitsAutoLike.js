@@ -31,7 +31,7 @@ async function main() {
    await page.waitForNavigation();
    //await page.evaluate(() => console.log('2222'));
   //_______________________________________________________________________
-   await page.waitFor(3000);
+   await page.waitFor(7000);
    await page.evaluate(async ()  => {      
       const voteBtns = document.getElementsByClassName('icon-vote-negative');    
       const boostBtns =  document.getElementsByClassName('boost-state-available');       
