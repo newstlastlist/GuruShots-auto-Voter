@@ -41,14 +41,14 @@ async function main() {
       for (var btn of voteBtns){ 
                 
          $(btn).click();         
-         await new Promise(resolve => setTimeout(resolve, 3000));         
+         await new Promise(resolve => setTimeout(resolve, 7000));         
          const picForVote = $(".modal-vote__photo__vote");         
 
          if(picForVote.length === 0){
             $('div.modal-vote__submit.on').click();
-            await new Promise(resolve => setTimeout(resolve, 3000)); 
+            await new Promise(resolve => setTimeout(resolve, 7000)); 
             $('div.gs-btn--blue').click();
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 7000));
             continue;
 
          } else {
@@ -60,11 +60,11 @@ async function main() {
                   $(el).click();
                }
             });
-            await new Promise(resolve => setTimeout(resolve, 3000));            
+            await new Promise(resolve => setTimeout(resolve, 7000));            
             $('div.modal-vote__submit.on').click();
-            await new Promise(resolve => setTimeout(resolve, 2000));   
+            await new Promise(resolve => setTimeout(resolve, 7000));   
             $('div.modal-vote__btn').click();
-            await new Promise(resolve => setTimeout(resolve, 3000)); 
+            await new Promise(resolve => setTimeout(resolve, 7000)); 
             
          }
       }
@@ -74,10 +74,10 @@ async function main() {
          for (var btn of boostBtns){ 
 
             $(btn).click(); 
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 7000));
             const picForVote = document.querySelector('div.c-modal-boost__photos > div:nth-child(1)'); 
             $(picForVote).click(); 
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            await new Promise(resolve => setTimeout(resolve, 7000));
             
          }    
       } 
