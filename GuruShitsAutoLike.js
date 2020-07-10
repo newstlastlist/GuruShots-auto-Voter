@@ -36,6 +36,13 @@ async function main() {
       const voteBtns = document.getElementsByClassName('icon-vote-negative');    
       const boostBtns =  document.getElementsByClassName('boost-state-available');       
       console.log(voteBtns.length);
+     
+      //Close modal windows showing the swap suggestions and swap results
+      const closeBtns = document.getElementsByClassName('c-cards__close');
+      for (var btn of closeBtns) {
+         $(btn).click();
+         await new Promise(resolve => setTimeout(resolve, 1000));
+      }
       
       //vote for photos
       for (var btn of voteBtns){ 
