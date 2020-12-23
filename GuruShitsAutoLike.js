@@ -13,7 +13,8 @@ async function main() {
    await page.goto('https://gurushots.com/', { waitUntil: 'networkidle0' });
 
    //__________________ sign in _____________________________________
-   const loginBtn = '#header > gs-header > div > div > a.signin';
+   //const loginBtn = '#header > gs-header > div > div > a.signin';
+   const loginBtn = 'header#JW7vAd.JW7vAe gs-header div > div > a.JW7vAg';
    const login = '#dialogContent_0 > md-dialog-content > form > div:nth-child(1) > input';
    const password = '#dialogContent_0 > md-dialog-content > form > div:nth-child(2) > input';
    const loginSubmit = '#dialogContent_0 > md-dialog-content > form > button'
@@ -23,9 +24,9 @@ async function main() {
    await page.click(loginBtn);
 
    await page.click(login);
-   await page.waitFor(300);
+   await page.waitForTimeout(300);
    await page.keyboard.type(CREDS.login);
-   await page.waitFor(300);
+   await page.waitForTimeout(300);
 
    await page.click(password);
    await page.keyboard.type(CREDS.password);
@@ -35,25 +36,33 @@ async function main() {
    await page.waitForNavigation();
    //await page.evaluate(() => console.log('2222'));
    //_______________________________________________________________________
-   await page.waitFor(4000);
+   await page.waitForTimeout(4000);
    await page.evaluate(async () => {
+      const LetsGo = document.getElementsByClassName('modal-vote__greeting');
       const voteBtns = document.getElementsByClassName('icon-vote-negative');
       const boostBtns = document.getElementsByClassName('boost-state-available');
+
       //console.log(voteBtns.length);
 
       //vote for photos
       for (var btn of voteBtns) {
 
          //Only click button if the first class is for exposure vote
-         if (btn.parentNode.classList[0] == "c-challenges-item-mobile__exposure__vote") {
+
+         //if (btn.parentNode.classList[0] == "c-challenges-item-mobile__exposure__vote") {
+         if (btn.parentNode.classList[0] == "JW7vAl") {
             $(btn).click();
             await new Promise(resolve => setTimeout(resolve, 4000));
-            const picForVote = $(".modal-vote__photo__vote");
+            $(LetsGo).click();
+            //const picForVote = $(".modal-vote__photo__vote");
+            const picForVote = $(".JW7vAo");
 
             if (picForVote.length === 0) {
-               $('div.modal-vote__submit.on').click();
+               //$('div.modal-vote__submit.on').click();
+               $('div.JW7vAp.on').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
-               $('div.gs-btn--blue').click();
+               //$('div.modal-vote__btn').click();
+               $('div.JW7vAq').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
                continue;
 
@@ -66,9 +75,11 @@ async function main() {
                   }
                });
                await new Promise(resolve => setTimeout(resolve, 4000));
-               $('div.modal-vote__submit.on').click();
+               //$('div.modal-vote__submit.on').click();
+               $('div.JW7vAp.on').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
-               $('div.modal-vote__btn').click();
+               //$('div.modal-vote__btn').click();
+               $('div.JW7vAq').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
 
             }
