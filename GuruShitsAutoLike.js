@@ -15,7 +15,7 @@ async function main() {
    //__________________ sign in _____________________________________
    //const loginBtn = '#header > gs-header > div > div > a.signin';
 
-   const loginBtn = 'header#PP9k5e > gs-header > div > div > protection:nth-child(1) > a.PP9k5h';
+   const loginBtn = 'header#wxUrFe > gs-header > div > div > protection:nth-child(1) > a.wxUrFh';
    const login = '#dialogContent_0 > md-dialog-content > form > div:nth-child(1) > input';
    const password = '#dialogContent_0 > md-dialog-content > form > div:nth-child(2) > input';
    const loginSubmit = '#dialogContent_0 > md-dialog-content > form > button'
@@ -42,21 +42,21 @@ async function main() {
       for (var btn of voteBtns) {
          //Only click button if the first class is for exposure vote
          //if (btn.parentNode.classList[0] == "c-challenges-item-mobile__exposure__vote") {
-         if (btn.parentNode.classList[0] == "PP9k5r") {
+         if (btn.parentNode.classList[0] == "wxUrFr") {
             $(SwapVoteCloseBtn).click();
             await new Promise(resolve => setTimeout(resolve, 1000));
             $(btn).click();
             await new Promise(resolve => setTimeout(resolve, 4000));
             $(LetsGo).click();
             //const picForVote = $(".modal-vote__photo__vote");
-            const picForVote = $(".PP9k5u");
+            const picForVote = $(".wxUrFu");
 
             if (picForVote.length === 0) {
                //$('div.modal-vote__submit.on').click();
-               $('div.PP9k5v.on').click();
+               $('div.wxUrFv.on').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
                //$('div.modal-vote__btn').click();
-               $('div.PP9k5w').click();
+               $('div.wxUrFw').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
                continue;
             } else {
@@ -69,10 +69,10 @@ async function main() {
                });
                await new Promise(resolve => setTimeout(resolve, 4000));
                //$('div.modal-vote__submit.on').click();
-               $('div.PP9k5v.on').click();
+               $('div.wxUrFv.on').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
                //$('div.modal-vote__btn').click();
-               $('div.PP9k5w').click();
+               $('div.wxUrFw').click();
                await new Promise(resolve => setTimeout(resolve, 4000));
             }
          }
