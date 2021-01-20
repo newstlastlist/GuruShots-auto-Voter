@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
 
 async function main() {
-   //const browser = await puppeteer.launch();
    const browser = await puppeteer.launch({
       headless: false,
       dumpio: false,
@@ -9,105 +8,86 @@ async function main() {
    });
 
    const page = await browser.newPage();
-   await page.setViewport({ width: 1200, height: 720 })
-   await page.goto('https://gurushots.com/', { waitUntil: 'networkidle0' });
-
-   //__________________ sign in _____________________________________
-   //const loginBtn = '#header > gs-header > div > div > a.signin';
-   const loginBtn = 'header#JW7vAd.JW7vAe gs-header div > div > a.JW7vAg';
+   await page.setViewport({width: 1200, height: 720})
+   await page.goto('https://gurushots.com/', {waitUntil: 'networkidle0'});
    const login = '#dialogContent_0 > md-dialog-content > form > div:nth-child(1) > input';
    const password = '#dialogContent_0 > md-dialog-content > form > div:nth-child(2) > input';
    const loginSubmit = '#dialogContent_0 > md-dialog-content > form > button'
 
    const CREDS = require('./LoginData');
 
-   await page.click(loginBtn);
+   await page.evaluate(async () => {
+      const loginBtn = document.querySelectorAll('header gs-header div > div > protection:nth-child(1) a');
+      for (var btn of loginBtn) {
+         const style = getComputedStyle(btn);
+
+         if (style.display !== 'none') {
+            await btn.click();
+            break;
+         }
+      }
+
+   })
 
    await page.click(login);
    await page.waitForTimeout(300);
    await page.keyboard.type(CREDS.login);
    await page.waitForTimeout(300);
-
    await page.click(password);
    await page.keyboard.type(CREDS.password);
-
    await page.click(loginSubmit);
-
    await page.waitForNavigation();
-   //await page.evaluate(() => console.log('2222'));
-   //_______________________________________________________________________
-   await page.waitForTimeout(4000);
+
+   await page.waitForTimeout(9000);
+
    await page.evaluate(async () => {
       const LetsGo = document.getElementsByClassName('modal-vote__greeting');
       const voteBtns = document.getElementsByClassName('icon-vote-negative');
       const boostBtns = document.getElementsByClassName('boost-state-available');
 
-      //console.log(voteBtns.length);
-
-      //vote for photos
       for (var btn of voteBtns) {
+         $(btn).click();
+         await new Promise(resolve => setTimeout(resolve, 4000));
+         $(LetsGo).click();
+         const picForVote = $(".modal-vote__photo__voted").prev();
 
-         //Only click button if the first class is for exposure vote
-
-         //if (btn.parentNode.classList[0] == "c-challenges-item-mobile__exposure__vote") {
-         if (btn.parentNode.classList[0] == "JW7vAl") {
-            $(btn).click();
+         if (picForVote.length === 0) {
+            $('div[ng-click="$ctrl.submit()"]').click();
             await new Promise(resolve => setTimeout(resolve, 4000));
-            $(LetsGo).click();
-            //const picForVote = $(".modal-vote__photo__vote");
-            const picForVote = $(".JW7vAo");
+            $('div[ng-click="$ctrl.close()"]').click();
+            await new Promise(resolve => setTimeout(resolve, 4000));
+            continue;
 
-            if (picForVote.length === 0) {
-               //$('div.modal-vote__submit.on').click();
-               $('div.JW7vAp.on').click();
-               await new Promise(resolve => setTimeout(resolve, 4000));
-               //$('div.modal-vote__btn').click();
-               $('div.JW7vAq').click();
-               await new Promise(resolve => setTimeout(resolve, 4000));
-               continue;
-
-            } else {
-               //await picForVote.each((i, el) => $(el).click());
-               await picForVote.each(function (i, el) {
-                  r = Math.random();
-                  if (i >= 20 && r > 0.2) {
-                     $(el).click();
-                  }
-               });
-               await new Promise(resolve => setTimeout(resolve, 4000));
-               //$('div.modal-vote__submit.on').click();
-               $('div.JW7vAp.on').click();
-               await new Promise(resolve => setTimeout(resolve, 4000));
-               //$('div.modal-vote__btn').click();
-               $('div.JW7vAq').click();
-               await new Promise(resolve => setTimeout(resolve, 4000));
-
-            }
+         } else {
+            await picForVote.each(function (i, el) {
+               r = Math.random();
+               if (i >= 20 && r > 0.2) {
+                  $(el).click();
+               }
+            });
+            await new Promise(resolve => setTimeout(resolve, 4000));
+            $('div[ng-click="$ctrl.submit()"]').click();
+            await new Promise(resolve => setTimeout(resolve, 4000));
+            $('div[ng-click="$ctrl.close()"]').click();
+            await new Promise(resolve => setTimeout(resolve, 4000));
          }
       }
 
-      // try to boost
-      if (boostBtns.length >= 1) {
-         for (var btn of boostBtns) {
+// try to boost
+//if (boostBtns.length >= 1) {
+      // for (var btn of boostBtns) {
+      //   $(btn).click();
+      //  await new Promise(resolve => setTimeout(resolve, 4000));
+      //  const picForVote = document.querySelector('div.c-modal-boost__photos > div:nth-child(1)');
+      //  $(picForVote).click();
+      //  await new Promise(resolve => setTimeout(resolve, 4000));
 
-            $(btn).click();
-            await new Promise(resolve => setTimeout(resolve, 4000));
-            const picForVote = document.querySelector('div.c-modal-boost__photos > div:nth-child(1)');
-            $(picForVote).click();
-            await new Promise(resolve => setTimeout(resolve, 4000));
+      // }
 
-         }
-      }
-
-
-
+// }
    });
-
-
-
-
    await browser.close();
+   await console.log('Voting Done');
 }
-
 
 main();
