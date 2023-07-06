@@ -10,12 +10,15 @@ async function main() {
    const page = await browser.newPage();
    await page.setViewport({width: 1200, height: 720})
    await page.goto('https://gurushots.com/', {waitUntil: 'networkidle0'});
+   const cookieAgree = '#qc-cmp2-ui > div.qc-cmp2-footer.qc-cmp2-footer-overlay.qc-cmp2-footer-scrolled > div > button.css-47sehv';
    const login = '#dialogContent_0 > md-dialog-content > form > div:nth-child(1) > input';
    const password = '#dialogContent_0 > md-dialog-content > form > div:nth-child(2) > input';
    const loginSubmit = '#dialogContent_0 > md-dialog-content > form > button'
 
    const CREDS = require('./LoginData');
 
+   await page.click(cookieAgree);
+   
    await page.evaluate(async () => {
       const loginBtn = document.querySelectorAll('header gs-header div > div > protection:nth-child(1) a');
       for (var btn of loginBtn) {
@@ -29,6 +32,7 @@ async function main() {
 
    })
 
+   
    await page.click(login);
    await page.waitForTimeout(300);
    await page.keyboard.type(CREDS.login);
@@ -73,18 +77,19 @@ async function main() {
          }
       }
 
-// try to boost
-//if (boostBtns.length >= 1) {
-      // for (var btn of boostBtns) {
-      //   $(btn).click();
-      //  await new Promise(resolve => setTimeout(resolve, 4000));
-      //  const picForVote = document.querySelector('div.c-modal-boost__photos > div:nth-child(1)');
-      //  $(picForVote).click();
-      //  await new Promise(resolve => setTimeout(resolve, 4000));
+	// try to boost
+	if (boostBtns.length >= 1) {
+		   for (var btn of boostBtns) {
+			 $(btn).click();
+			await new Promise(resolve => setTimeout(resolve, 4000));
+			const picForVote = document.querySelector('div.c-modal-boost__photos > div:nth-child(1)');
+			$(picForVote).click();
+			await new Promise(resolve => setTimeout(resolve, 4000));
 
-      // }
+		   }
 
-// }
+	}
+	
    });
    await browser.close();
    await console.log('Voting Done');
